@@ -93,7 +93,7 @@ func (a *Authority) AuthorizeSign(ott string) ([]provisioner.SignOption, error) 
 	// auth claims and get the signing options.
 	opts, err := p.AuthorizeSign(ott)
 	if err != nil {
-		return nil, &apiError{errors.Wrap(err, "authorizeSign"), http.StatusUnauthorized, errContext}
+		return nil, &apiError{errors.Wrap(err, "auth.authorizeSign"), http.StatusUnauthorized, errContext}
 	}
 
 	return opts, nil

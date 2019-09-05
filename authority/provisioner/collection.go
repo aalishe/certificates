@@ -83,6 +83,7 @@ func (c *Collection) LoadByToken(token *jose.JSONWebToken, claims *jose.Claims) 
 		}
 		// If matches with stored audiences it will be a JWT token (default), and
 		// the id would be <issuer>:<kid>.
+		fmt.Printf("token.Headers[0].ExtraHeaders = %+v\n", token.Headers[0].ExtraHeaders)
 		return c.Load(claims.Issuer + ":" + token.Headers[0].KeyID)
 	}
 
@@ -153,7 +154,7 @@ func (c *Collection) LoadEncryptedKey(keyID string) (string, bool) {
 // provisioner IDs.
 func (c *Collection) Store(p Interface) error {
 	// Store provisioner always in byID. ID must be unique.
-	if _, loaded := c.byID.LoadOrStore(p.GetID(), p); loaded == true {
+	if _, loaded := c.byID.LoadOrStore(p.GetID(), p); loaded {
 		return errors.New("cannot add multiple provisioners with the same id")
 	}
 

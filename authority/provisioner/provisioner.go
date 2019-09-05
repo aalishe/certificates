@@ -82,6 +82,8 @@ const (
 	TypeAWS Type = 4
 	// TypeAzure is used to indicate the Azure provisioners.
 	TypeAzure Type = 5
+	// TypeX5C is used to indicate the X5C provisioners.
+	TypeX5C Type = 7
 
 	// RevokeAudienceKey is the key for the 'revoke' audiences in the audiences map.
 	RevokeAudienceKey = "revoke"
@@ -102,6 +104,8 @@ func (t Type) String() string {
 		return "AWS"
 	case TypeAzure:
 		return "Azure"
+	case TypeX5C:
+		return "X5C"
 	default:
 		return ""
 	}
@@ -149,6 +153,8 @@ func (l *List) UnmarshalJSON(data []byte) error {
 			p = &AWS{}
 		case "azure":
 			p = &Azure{}
+		case "x5c":
+			p = &X5C{}
 		default:
 			// Skip unsupported provisioners. A client using this method may be
 			// compiled with a version of smallstep/certificates that does not
